@@ -27,7 +27,7 @@ function getCorsHeaders(origin: string | null) {
 }
 
 // Основная функция прокси
-export default function proxy(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const origin = request.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
   
