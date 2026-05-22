@@ -1,9 +1,11 @@
 export interface User {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  role: 'user' | 'admin';
+  id: string
+  displayName: string
+  bio: string
+  birthDate: string
+  avatars?: string[]
+  interests: string[]
+  role?: 'user' | 'admin'
 }
 
 export interface UserState {

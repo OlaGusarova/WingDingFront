@@ -1,18 +1,26 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Настройки Turbopack для FSD структуры
   turbopack: {
     resolveAlias: {
-      '@': './src',  // Алиас для импортов
+      '@': './src',
     },
-    // Если нужно расширить расширения файлов
-    resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.json'],
   },
   
-  // Другие настройки Next.js
-  images: {
-    domains: [], // Добавьте свои домены при необходимости
+  // Важно: отключаем строгую проверку CORS в dev режиме
+  // (не обязательно, но может помочь)
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,DELETE,OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
+        ],
+      },
+    ];
   },
 };
 
