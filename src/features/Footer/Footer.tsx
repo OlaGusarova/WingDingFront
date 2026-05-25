@@ -86,7 +86,7 @@ export const Footer = () => {
         <Divider sx={{ my: 4, bgcolor: 'grey.700' }} />
 
         <Typography variant="body2" align="center" color="grey.500">
-          © {currentYear} EventHub. Все права защищены.
+          © {currentYear} WingDing. Все права защищены.
         </Typography>
       </Container>
     </Box>
