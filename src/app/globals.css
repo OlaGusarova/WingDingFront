@@ -1,4 +1,13 @@
-@import "tailwindcss";
+/* Определяем порядок слоев */
+@layer theme, base, mui, components, utilities;
+
+/* Импорт Tailwind должен быть внутри слоя theme */
+@import 'tailwindcss' layer(theme);
+
+/* Сброс стилей MUI теперь в своем слое */
+@layer mui {
+  /* MUI уже установил CssBaseline через провайдер */
+}
 
 :root {
   --background: #ffffff;
