@@ -1,15 +1,17 @@
 'use client';
 
-//import { LoginForm } from '@/features/auth/ui/LoginForm';
-import { useAppSelector } from '@/app/store/hooks';
-import { useGetUserQuery, selectUser } from '@/entities/user';
+//import { LoginForm } from '@/features/auth/ui/LoginForm'
+import { useAppSelector } from '@/app/store/hooks'
+import { useGetUserQuery, selectUser } from '@/entities/user'
 
-export default function HomePage() {
+const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
+
+export default function ProfilePage() {
   // const currentUser = useAppSelector(selectUser)
   // const { data: userDetails, isLoading } = useGetUserQuery(currentUser?.id || 0, {
   //   skip: !currentUser?.id,
   // });
-  const { data: userDetails, isLoading, error } = useGetUserQuery('d5e5cc54-8ac0-4c4c-91b6-e5e08f500e88')
+  const { data: userDetails, isLoading, error } = useGetUserQuery(testId)
   console.log({ userDetails, error })
 
   // if (!currentUser) {
@@ -38,5 +40,5 @@ export default function HomePage() {
         </div>
       )}
     </main>
-  );
+  )
 }
