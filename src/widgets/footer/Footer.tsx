@@ -20,7 +20,7 @@ const Footer = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={4}>
           {/* О нас */}
-          <Grid item xs={12} sm={6} md={3} sx={{ width: '40%' }}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} sx={{ width: '40%'}}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
               WingDing
             </Typography>
@@ -30,7 +30,7 @@ const Footer = () => {
           </Grid>
 
           {/* Быстрые ссылки */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography variant='subtitle1' sx={{ fontWeight: 'semibold', mb: 1 }}>
               Быстрые ссылки
             </Typography>
@@ -43,7 +43,7 @@ const Footer = () => {
           </Grid>
 
           {/* Пользователям */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography  variant='subtitle1' sx={{ fontWeight: 'semibold', mb: 1 }}>
               Пользователям
             </Typography>
@@ -56,7 +56,7 @@ const Footer = () => {
           </Grid>
 
           {/* Контакты */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography variant='subtitle1' sx={{ fontWeight: 'semibold', mb: 1 }}>
               Контакты
             </Typography>

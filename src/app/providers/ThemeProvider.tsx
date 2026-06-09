@@ -4,7 +4,7 @@ import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { green, deepOrange } from '@mui/material/colors';
+import { green, deepOrange, indigo } from '@mui/material/colors';
 
 // Подключаем шрифт (опционально, но красиво)
 import { Roboto } from 'next/font/google';
@@ -32,8 +32,16 @@ const theme = createTheme({
     },
   },
   palette: {
-    primary: green,
-    secondary: deepOrange,
+    primary: {
+      main: '#6366F1', // Ваш indigo
+      light: '#818CF8',
+      dark: '#4F46E5',
+    },
+    secondary: {
+      main: '#10B981', // Ваш emerald (точный hex)
+      light: '#34D399',
+      dark: '#059669',
+    },
   },
 });
 

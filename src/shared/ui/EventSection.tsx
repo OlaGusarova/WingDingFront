@@ -11,6 +11,7 @@ import {
   Box,
   Chip
 } from '@/shared/ui/mui';
+import Image from 'next/image'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -46,7 +47,7 @@ export const EventSection = ({ event }: IEvent) => {
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4} key={event.id}>
+    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={event.id}>
       <Card
         sx={{
           height: '100%',
@@ -57,7 +58,15 @@ export const EventSection = ({ event }: IEvent) => {
           },
         }}
       >
-        <CardMedia component="img" height="200" image={event.image} alt={event.title} />
+        <Box sx={{ position: 'relative', width: '100%', height: 200, overflow: 'hidden' }}>
+          <Image
+            src={event.image}
+            alt={event.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
+          />
+        </Box>
         <CardContent sx={{ flexGrow: 1 }}>
           <Box sx={{ mb: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             <Chip label={getCategoryLabel(event.category)} color={getCategoryColor(event.category)} size="small" />
@@ -94,11 +103,11 @@ export const EventSection = ({ event }: IEvent) => {
           </Box>
         </CardContent>
 
-        <CardActions sx={{ p: 2, pt: 0 }}>
-          <Button fullWidth variant="contained" color="success">
+        {/* <CardActions sx={{ p: 2, pt: 0 }}>
+          <Button fullWidth variant="contained" color='info'>
             Участвовать
           </Button>
-        </CardActions>
+        </CardActions> */}
       </Card>
     </Grid>
   )

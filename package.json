@@ -18,7 +18,7 @@
     "@feature-sliced/filesystem": "3.1.0",
     "@hookform/resolvers": "5.4.0",
     "@mui/icons-material": "9.0.1",
-    "@mui/material": "9.0.1",
+    "@mui/material": "9.1.0",
     "@mui/material-nextjs": "9.0.1",
     "@reduxjs/toolkit": "2.12.0",
     "clsx": "2.1.1",

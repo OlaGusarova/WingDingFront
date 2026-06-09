@@ -1,13 +1,19 @@
-import { Box } from '@mui/material'
+import Image from 'next/image'
 import { EventsSection } from '@/features'
-import { getEvents } from '@/pages/home/api/getEvents';
+import { getEvents } from '@/pages/home/api/getEvents'
 
 
 export default async function HomePage() {
   const events = await getEvents();
   return (
-    <Box sx={{ flex: 1 }}>
+    <>
+      <Image
+        src="/images/mainBan.png" // 👈 Прямой путь от корня проекта
+        alt="баннер"
+        width={1152}
+        height={400}
+      />
       <EventsSection events={events} />
-    </Box>
+    </>
   );
 };

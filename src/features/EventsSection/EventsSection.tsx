@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Container,
   Typography,
   Grid,
   Skeleton
@@ -18,10 +17,9 @@ export const EventsSection = ({ events, loading = false }: EventsSectionProps) =
 
   const renderHeader = () => (
     <Typography 
-      variant="h4" 
-      sx={{ 
-        textAlign: 'center', 
-        mb: 6,
+      variant="h6" 
+      sx={{
+        my: 4,
         fontWeight: 'bold' 
       }}
     >
@@ -31,23 +29,23 @@ export const EventsSection = ({ events, loading = false }: EventsSectionProps) =
 
   if (loading) {
     return (
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <>
         {renderHeader()}
         <Grid container spacing={4}>
           {[1, 2, 3, 4].map((i) => (
-            <Grid item xs={12} sm={6} md={4} key={i}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={i}>
               <Skeleton variant="rectangular" height={200} />
               <Skeleton />
               <Skeleton width="60%" />
             </Grid>
           ))}
         </Grid>
-      </Container>
+      </>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
+    <>
       {renderHeader()}
       <Grid container spacing={4}>
         {events.map((event: Event) => 
@@ -57,6 +55,6 @@ export const EventsSection = ({ events, loading = false }: EventsSectionProps) =
           />
         )}
       </Grid>
-    </Container>
+    </>
   );
 };
