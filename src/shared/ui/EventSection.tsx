@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Container,
   Typography,
   Grid,
   Card,
@@ -10,21 +9,41 @@ import {
   CardActions,
   Button,
   Box,
-  Chip,
-  Rating,
-  Skeleton,
+  Chip
 } from '@/shared/ui/mui';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
 import { Event } from '@/app/(pages)/types';
+import dateParse from '../lib/dateParse';
 
-export const EventSection = (event: Event) => {
-    const formatDate = (dateString: string) => {
-    return format(new Date(dateString), 'd MMMM yyyy, HH:mm', { locale: ru });
+interface IEvent { event: Event}
+type colorsType = 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
+
+export const EventSection = ({ event }: IEvent) => {
+  const formatDate = (dateString: string) => {
+    return dateParse(dateString, 'd MMMM YYYY, HH:mm');
   }
+ 
+  const getCategoryColor = (category: Event['category']) => {
+    const colors = {
+      concert: 'error',
+      exhibition: 'info',
+      sport: 'success',
+      education: 'warning',
+    };
+    return colors[category] as colorsType;
+  };
+
+  const getCategoryLabel = (category: Event['category']) => {
+    const labels = {
+      concert: 'Концерт',
+      exhibition: 'Выставка',
+      sport: 'Спорт',
+      education: 'Образование',
+    };
+    return labels[category];
+  };
 
   return (
     <Grid item xs={12} sm={6} md={4} key={event.id}>
@@ -33,17 +52,15 @@ export const EventSection = (event: Event) => {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          transition: 'transform 0.3s, box-shadow 0.3s',
           '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: 6,
+            boxShadow: 3,
           },
         }}
       >
         <CardMedia component="img" height="200" image={event.image} alt={event.title} />
         <CardContent sx={{ flexGrow: 1 }}>
           <Box sx={{ mb: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-            <Chip label={event.category} size="small" />
+            <Chip label={getCategoryLabel(event.category)} color={getCategoryColor(event.category)} size="small" />
             {event.isFree && <Chip label="Бесплатно" color="success" size="small" />}
           </Box>
 
@@ -70,15 +87,15 @@ export const EventSection = (event: Event) => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-            <AttachMoneyIcon sx={{ fontSize: 20, color: 'primary.main' }} />
-            <Typography variant="h6" color="primary.main" fontWeight="bold">
+            <AttachMoneyIcon sx={{ fontSize: 20, color: 'secondary.main' }} />
+            <Typography variant="h6">
               {event.isFree ? 'Бесплатно' : `${event.price} ₽`}
             </Typography>
           </Box>
         </CardContent>
 
         <CardActions sx={{ p: 2, pt: 0 }}>
-          <Button fullWidth variant="contained" color="primary">
+          <Button fullWidth variant="contained" color="success">
             Участвовать
           </Button>
         </CardActions>

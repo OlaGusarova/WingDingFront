@@ -11,19 +11,16 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Avatar,
-  Badge,
+  Avatar
 } from '@/shared/ui/mui'
 import MenuIcon from '@mui/icons-material/Menu'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import EventIcon from '@mui/icons-material/Event'
 import { useRouter, usePathname } from 'next/navigation'
 import { useGetUserQuery } from '@/entities/user'
-import type { User } from '@/entities/user/types'
 
 const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
 
-export const Header = () => {
+const Header = () => {
   const router = useRouter()
   const pathname = usePathname()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -84,7 +81,7 @@ export const Header = () => {
             </Typography>
           </Box>
 
-          {/* Мобильное меню - исправлено */}
+          {/* Мобильное меню */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton size="large" onClick={(e) => setMobileAnchorEl(e.currentTarget)} color="inherit">
               <MenuIcon />
@@ -148,3 +145,5 @@ export const Header = () => {
     </AppBar>
   );
 };
+
+export default Header

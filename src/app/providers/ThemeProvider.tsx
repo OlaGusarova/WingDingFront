@@ -4,6 +4,7 @@ import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { green, deepOrange } from '@mui/material/colors';
 
 // Подключаем шрифт (опционально, но красиво)
 import { Roboto } from 'next/font/google';
@@ -18,6 +19,7 @@ const roboto = Roboto({
 const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
+    fontSize: 13
   },
   // Здесь можно переопределять компоненты и палитру
   components: {
@@ -28,6 +30,10 @@ const theme = createTheme({
         },
       },
     },
+  },
+  palette: {
+    primary: green,
+    secondary: deepOrange,
   },
 });
 

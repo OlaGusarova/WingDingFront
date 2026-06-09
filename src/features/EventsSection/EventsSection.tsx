@@ -16,26 +16,6 @@ interface EventsSectionProps {
 
 export const EventsSection = ({ events, loading = false }: EventsSectionProps) => {
 
-  const getCategoryColor = (category: Event['category']) => {
-    const colors = {
-      concert: 'error',
-      exhibition: 'primary',
-      sport: 'success',
-      education: 'warning',
-    };
-    return colors[category];
-  };
-
-  const getCategoryLabel = (category: Event['category']) => {
-    const labels = {
-      concert: 'Концерт',
-      exhibition: 'Выставка',
-      sport: 'Спорт',
-      education: 'Образование',
-    };
-    return labels[category];
-  };
-
   const renderHeader = () => (
     <Typography 
       variant="h4" 

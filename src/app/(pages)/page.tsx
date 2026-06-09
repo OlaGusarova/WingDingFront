@@ -1,5 +1,4 @@
-import { HomePage } from '@/pages/home/HomePage';
-import { getEvents } from '@/pages/home/api/getEvents';
+import HomePage from '@/pages/home/HomePage';
 
 export const metadata = {
   title: 'EventHub - Все события в одном месте',
@@ -7,9 +6,8 @@ export const metadata = {
   keywords: 'события, билеты, концерты, выставки, спорт',
 };
 
-export default async function Home() {
-
-  const events = await getEvents();
-  
-  return <HomePage initialEvents={events} />;
+export default async function Home() {  
+  return (
+    <HomePage />
+  )
 }
