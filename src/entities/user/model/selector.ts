@@ -5,5 +5,8 @@ const selectCurrentUser = (state: RootState) => state.user.currentUser
 
 export const selectUser = createSelector(
   [selectCurrentUser],
-  user => user
+  user => ({
+    ...user,
+    mainAvatar: user?.avatars?.filter(avatar => avatar.isDefault)[0]
+  })
 );

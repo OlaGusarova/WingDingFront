@@ -12,6 +12,7 @@ export default async function HomePage() {
         alt="баннер"
         width={1152}
         height={400}
+        className='rounded-4xl'
       />
       <EventsSection events={events} />
     </>

@@ -21,7 +21,7 @@ export const userApi = api.injectEndpoints({
           console.error('Login failed:', error);
         }
       },
-      providesTags: (result, error, id) => [{ type: 'User', id }],
+      providesTags: ['User'],
     }),
     updateUser: builder.mutation<User, Partial<User> & Pick<User, 'id'>>({
       query: ({ id, ...patch }) => ({
@@ -29,9 +29,17 @@ export const userApi = api.injectEndpoints({
         method: 'PATCH',
         body: patch,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'User', id }],
+      invalidatesTags: ['User'],
+    }),
+    updateAvatar: builder.mutation<void, FormData>({
+      query: (body) => ({
+        url: '/avatars',
+        method: 'POST', 
+        body,
+      }),
+      invalidatesTags: ['User']
     }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+export const { useGetUserQuery, useUpdateUserMutation, useUpdateAvatarMutation } = userApi;

@@ -17,10 +17,12 @@ export const EventsSection = ({ events, loading = false }: EventsSectionProps) =
 
   const renderHeader = () => (
     <Typography 
-      variant="h6" 
+      variant='h4' 
       sx={{
-        my: 4,
-        fontWeight: 'bold' 
+        my: 6,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textTransform: 'uppercase'
       }}
     >
       Предстоящие события

@@ -14,7 +14,6 @@ import {
   Avatar
 } from '@/shared/ui/mui'
 import MenuIcon from '@mui/icons-material/Menu'
-import EventIcon from '@mui/icons-material/Event'
 import { useRouter, usePathname } from 'next/navigation'
 import { useGetUserQuery } from '@/entities/user'
 
@@ -51,7 +50,6 @@ const Header = () => {
   }
 
   const menuItems = [
-    { label: 'Главная', path: '/' },
     { label: 'События', path: '/events' },
     { label: 'О нас', path: '/about' },
     { label: 'Контакты', path: '/contacts' },
@@ -63,9 +61,8 @@ const Header = () => {
         <Toolbar disableGutters>
           {/* Логотип */}
           <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: { xs: 1, md: 0 } }}>
-            <EventIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               component="a"
               href="/"
@@ -92,7 +89,7 @@ const Header = () => {
               onClose={() => setMobileAnchorEl(null)}
             >
               {menuItems.map((item) => (
-                <MenuItem key={item.path} onClick={() => navigateTo(item.path)}>
+                <MenuItem key={item.path} sx={{ textTransform: 'uppercase' }} onClick={() => navigateTo(item.path)}>
                   {item.label}
                 </MenuItem>
               ))}
@@ -107,8 +104,9 @@ const Header = () => {
                 onClick={() => navigateTo(item.path)}
                 sx={{
                   mx: 1,
-                  color: pathname === item.path ? 'primary.main' : 'text.primary',
-                  fontWeight: pathname === item.path ? 700 : 400,
+                  color: 'text.primary',
+                  fontWeight: pathname === item.path ? 600 : 400,
+                  textTransform: 'uppercase'
                 }}
               >
                 {item.label}
@@ -126,7 +124,6 @@ const Header = () => {
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
                   <MenuItem onClick={() => navigateTo('/profile')}>Личный кабинет</MenuItem>
                   <MenuItem onClick={() => navigateTo('/my-events')}>Мои события</MenuItem>
-                  <MenuItem onClick={() => navigateTo('/settings')}>Настройки</MenuItem>
                 </Menu>
               </>
             ) : (

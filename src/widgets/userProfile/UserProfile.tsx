@@ -6,6 +6,7 @@ import { Avatar, Badge, Button, Chip } from '@/shared/ui/mui'
 import AllInclusive from '@mui/icons-material/AllInclusive'
 import EventIcon from '@mui/icons-material/Event'
 import dateParse from '@/shared/lib/dateParse'
+import AvatarUpload from '@/features/profile/ui'
 
 const UserProfile = () => {
   const userDetails = useAppSelector(selectUser)
@@ -25,7 +26,7 @@ const UserProfile = () => {
                 horizontal: 'right'
               }}
             >
-              <Avatar alt={userDetails?.displayName} sx={{ height: '120px', width: '120px'}} />
+              <Avatar src={userDetails?.mainAvatar?.avatarUri} alt={userDetails?.displayName} sx={{ height: '120px', width: '120px'}} />
             </Badge>
           </div>
           <div className='flex flex-col justify-center gap-4'>
@@ -43,14 +44,14 @@ const UserProfile = () => {
               </div>
             </div>
             <div className='flex gap-2'>
-              {userDetails?.interests.map(interest => (
+              {userDetails?.interests?.map(interest => (
                 <Chip key={interest} label={interest} />
               ))}
             </div>
           </div>
         </div>
         <div className="flex flex-col">
-          <Button variant='text' color='success'>Редактировать профиль</Button>
+          <AvatarUpload />
         </div>
       </div>
     </div>
