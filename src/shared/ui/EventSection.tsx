@@ -48,17 +48,24 @@ export const EventSection = ({ event }: IEvent) => {
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={event.id}>
-      <Card
-        sx={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          '&:hover': {
-            boxShadow: 3,
-          },
-        }}
-      >
-        <Box sx={{ position: 'relative', width: '100%', height: 200, overflow: 'hidden' }}>
+      <Card sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'transform 0.3s, box-shadow 0.3s',
+        '&:hover .image-box': { filter: 'grayscale(0%)' }
+      }}>
+        <Box
+          className="image-box"
+          sx={{
+            position: 'relative',
+            width: '100%',
+            height: 200,
+            overflow: 'hidden',
+            filter: 'grayscale(100%)',
+            transition: 'filter 0.4s ease',
+          }}
+        >
           <Image
             src={event.image}
             alt={event.title}
@@ -96,7 +103,7 @@ export const EventSection = ({ event }: IEvent) => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-            <AttachMoneyIcon sx={{ fontSize: 20, color: 'secondary.main' }} />
+            <AttachMoneyIcon sx={{ fontSize: 20 }} />
             <Typography variant="h6">
               {event.isFree ? 'Бесплатно' : `${event.price} ₽`}
             </Typography>

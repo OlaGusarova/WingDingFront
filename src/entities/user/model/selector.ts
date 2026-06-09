@@ -10,3 +10,8 @@ export const selectUser = createSelector(
     mainAvatar: user?.avatars?.filter(avatar => avatar.isDefault)[0]
   })
 );
+
+export const selectUserInterests = createSelector(
+  [selectCurrentUser],
+  user => user?.interests || []
+);

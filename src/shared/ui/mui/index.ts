@@ -21,4 +21,8 @@ export { default as Link } from '@mui/material/Link';
 export { default as Skeleton } from '@mui/material/Skeleton';
 export { default as Badge } from '@mui/material/Badge';
 export { default as Rating } from '@mui/material/Rating';
+export { default as Dialog } from '@mui/material/Dialog';
+export { default as DialogTitle } from '@mui/material/DialogTitle';
+export { default as DialogContent } from '@mui/material/DialogContent';
+export { default as DialogActions } from '@mui/material/DialogActions';
 export { default as TextField } from '@mui/material/TextField';

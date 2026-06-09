@@ -2,18 +2,19 @@
 
 import { useAppSelector } from '@/app/store/hooks'
 import { selectUser } from '@/entities/user'
-import { Avatar, Box, Button, Chip } from '@/shared/ui/mui'
+import { Avatar, Box, Button } from '@/shared/ui/mui'
 import AllInclusive from '@mui/icons-material/AllInclusive'
 import EventIcon from '@mui/icons-material/Event'
 import dateParse from '@/shared/lib/dateParse'
-import { AvatarUpload, AvatarEditButton } from '@/features/userAvatar/ui'
+import { AvatarEditButton } from '@/features/userAvatar/ui'
+import UserInterests from '@/features/userInterests/ui'
 
 const UserProfile = () => {
   const userDetails = useAppSelector(selectUser)
   console.log({ userDetails })
 
   return (
-    <div className="bg-gray-100 rounded-lg p-8 flex flex-col">
+    <div className='bg-white rounded-lg p-8 flex flex-col'>
       <div className='flex justify-between'>
         <div className="flex gap-8">
           <div className="flex flex-col">
@@ -36,11 +37,7 @@ const UserProfile = () => {
                 {userDetails?.bio || ''}
               </div>
             </div>
-            <div className='flex gap-2'>
-              {userDetails?.interests?.map(interest => (
-                <Chip key={interest} label={interest} />
-              ))}
-            </div>
+            <UserInterests />
           </div>
         </div>
         <div className="flex flex-col">

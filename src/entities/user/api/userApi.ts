@@ -67,6 +67,20 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ['User']
     }),
+    updateInterests: builder.mutation<void, Pick<User, 'id' | 'interests'>>({
+      query: ({ id, ...rest }) => ({
+        url: '/profiles/interests',
+        method: 'PUT', 
+        body: {
+          userId: id,
+          ...rest
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }),
+      invalidatesTags: ['User']
+    }),
   }),
 });
 
@@ -75,5 +89,6 @@ export const {
   useUpdateUserMutation,
   useUploadAvatarMutation,
   useUpdateAvatarMutation,
-  useDeleteAvatarMutation
+  useDeleteAvatarMutation,
+  useUpdateInterestsMutation
 } = userApi;

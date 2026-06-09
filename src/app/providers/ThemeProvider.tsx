@@ -4,9 +4,7 @@ import * as React from 'react';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { green, deepOrange, indigo } from '@mui/material/colors';
 
-// Подключаем шрифт (опционально, но красиво)
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
@@ -21,24 +19,23 @@ const theme = createTheme({
     fontFamily: roboto.style.fontFamily,
     fontSize: 13
   },
-  // Здесь можно переопределять компоненты и палитру
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none', // Отключаем uppercase у кнопок
+          textTransform: 'none',
         },
       },
     },
   },
   palette: {
     primary: {
-      main: '#6366F1', // Ваш indigo
+      main: '#6366F1',
       light: '#818CF8',
       dark: '#4F46E5',
     },
     secondary: {
-      main: '#10B981', // Ваш emerald (точный hex)
+      main: '#10B981',
       light: '#34D399',
       dark: '#059669',
     },
