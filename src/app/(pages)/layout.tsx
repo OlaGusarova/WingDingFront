@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body>
+      <body cz-shortcut-listen="true">
         <Providers>
           <ThemeProvider>
             <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>

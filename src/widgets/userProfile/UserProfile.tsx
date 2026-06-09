@@ -2,11 +2,11 @@
 
 import { useAppSelector } from '@/app/store/hooks'
 import { selectUser } from '@/entities/user'
-import { Avatar, Badge, Button, Chip } from '@/shared/ui/mui'
+import { Avatar, Box, Button, Chip } from '@/shared/ui/mui'
 import AllInclusive from '@mui/icons-material/AllInclusive'
 import EventIcon from '@mui/icons-material/Event'
 import dateParse from '@/shared/lib/dateParse'
-import AvatarUpload from '@/features/profile/ui'
+import { AvatarUpload, AvatarEditButton } from '@/features/userAvatar/ui'
 
 const UserProfile = () => {
   const userDetails = useAppSelector(selectUser)
@@ -17,17 +17,10 @@ const UserProfile = () => {
       <div className='flex justify-between'>
         <div className="flex gap-8">
           <div className="flex flex-col">
-            <Badge
-              color='success'
-              badgeContent='+'
-              overlap='circular'
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right'
-              }}
-            >
-              <Avatar src={userDetails?.mainAvatar?.avatarUri} alt={userDetails?.displayName} sx={{ height: '120px', width: '120px'}} />
-            </Badge>
+            <Box sx={{ position: 'relative', display: 'inline-block' }}>
+              <Avatar src={userDetails?.mainAvatar?.avatarUri} alt={userDetails?.displayName} sx={{ height: '150px', width: '150px'}} />
+              <AvatarEditButton />
+            </Box>
           </div>
           <div className='flex flex-col justify-center gap-4'>
             <h2 className="text-xl font-semibold">
@@ -51,7 +44,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="flex flex-col">
-          <AvatarUpload />
+          <Button>Редактировать профиль</Button>
         </div>
       </div>
     </div>

@@ -20,12 +20,12 @@ const Footer = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={4}>
           {/* О нас */}
-          <Grid size={{ xs: 12, sm: 6, md: 3 }} sx={{ width: '40%'}}>
+          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-              WingDing
+              WingDing Party
             </Typography>
             <Typography variant="body2" sx={{ mb: 2, color: 'grey.600' }}>
-              Платформа для поиска и бронирования событий. Концерты, выставки, спорт и многое другое.
+              Платформа для организации тематических встреч, знакомств по интересам и общения в рамках закрытого клубного сообщества
             </Typography>
           </Grid>
 
@@ -86,7 +86,7 @@ const Footer = () => {
         <Divider sx={{ my: 4, bgcolor: 'grey.150' }} />
 
         <Typography variant="body2" align="center" color="grey.500">
-          © {currentYear} WingDing. Все права защищены.
+          © {currentYear} WingDing Party. Все права защищены.
         </Typography>
       </Container>
     </Box>

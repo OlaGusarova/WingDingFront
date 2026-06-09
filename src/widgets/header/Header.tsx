@@ -74,7 +74,7 @@ const Header = () => {
                 textDecoration: 'none',
               }}
             >
-              WingDing
+              WingDing Party
             </Typography>
           </Box>
 
