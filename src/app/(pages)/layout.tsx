@@ -3,7 +3,7 @@ import { Providers } from '../providers'
 import { ThemeProvider } from '../providers/ThemeProvider'
 import Header from '@/widgets/header'
 import Footer from '@/widgets/footer'
-import { Box } from '@mui/material'
+import { Box, Container } from '@/shared/ui/mui'
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -23,7 +23,9 @@ export default function RootLayout({
           <ThemeProvider>
             <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
               <Header />
-              {children}
+              <Container maxWidth="lg" sx={{ py: 2 }}>
+                {children}
+              </Container>
               <Footer />
             </Box>
           </ThemeProvider>

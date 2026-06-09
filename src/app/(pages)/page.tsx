@@ -1,4 +1,4 @@
-import HomePage from '@/pages/home/HomePage';
+import HomePage from '@/pages/home/HomePage'
 
 export const metadata = {
   title: 'EventHub - Все события в одном месте',
