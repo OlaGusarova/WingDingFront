@@ -1,4 +1,5 @@
 import { api } from '@/shared/api';
+import { setUser } from '../model/userSlice';
 import { User } from '../types';
 
 export const userApi = api.injectEndpoints({
@@ -11,6 +12,15 @@ export const userApi = api.injectEndpoints({
           UserId: id
         }
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          
+          dispatch(setUser(data));
+        } catch (error) {
+          console.error('Login failed:', error);
+        }
+      },
       providesTags: (result, error, id) => [{ type: 'User', id }],
     }),
     updateUser: builder.mutation<User, Partial<User> & Pick<User, 'id'>>({
