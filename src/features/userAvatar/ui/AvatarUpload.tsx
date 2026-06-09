@@ -1,12 +1,12 @@
 'use client';
 
-import { useUpdateAvatarMutation } from '@/entities/user'
+import { useUploadAvatarMutation } from '@/entities/user'
 import { Button } from '@/shared/ui/mui'
 
 const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
 
 const AvatarUpload = () => {
-  const [updateAvatar, { isLoading }] = useUpdateAvatarMutation()
+  const [uploadAvatar, { isLoading }] = useUploadAvatarMutation()
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -21,7 +21,7 @@ const AvatarUpload = () => {
 
     // Отправляем на сервер
     try {
-      await updateAvatar(formData).unwrap();
+      await uploadAvatar(formData).unwrap();
       alert('Аватар успешно обновлен!');
     } catch (error) {
       console.error('Ошибка загрузки:', error);
@@ -29,7 +29,7 @@ const AvatarUpload = () => {
   };
 
   return (
-    <Button variant="contained" component="label">
+    <Button component='label' size='large' color='inherit'>
       Загрузить аватар
       <input type="file" hidden accept="image/jpeg, image/png, image/gif" onChange={handleFileChange} disabled={isLoading} />
     </Button>

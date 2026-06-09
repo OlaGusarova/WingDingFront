@@ -1,6 +1,6 @@
 import { api } from '@/shared/api';
 import { setUser } from '../model/userSlice';
-import { User } from '../types';
+import { User, Avatar } from '../types';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -31,7 +31,7 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    updateAvatar: builder.mutation<void, FormData>({
+    uploadAvatar: builder.mutation<void, FormData>({
       query: (body) => ({
         url: '/avatars',
         method: 'POST', 
@@ -39,7 +39,41 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ['User']
     }),
+    updateAvatar: builder.mutation<Avatar, Partial<User> & Omit<Avatar, 'avatarUri'>>({
+      query: ({ id, ...rest }) => ({
+        url: '/avatars',
+        method: 'PUT', 
+        body: {
+          userId: id,
+          ...rest
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }),
+      invalidatesTags: ['User']
+    }),
+    deleteAvatar: builder.mutation<void, Pick<User, 'id'> & Pick<Avatar, 'avatarId'>>({
+      query: ({ id, ...rest }) => ({
+        url: '/avatars',
+        method: 'DELETE', 
+        body: {
+          userId: id,
+          ...rest
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }),
+      invalidatesTags: ['User']
+    }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation, useUpdateAvatarMutation } = userApi;
+export const {
+  useGetUserQuery,
+  useUpdateUserMutation,
+  useUploadAvatarMutation,
+  useUpdateAvatarMutation,
+  useDeleteAvatarMutation
+} = userApi;

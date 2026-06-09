@@ -11,7 +11,7 @@ import {
   Button
 } from '@mui/material';
 import { useAppSelector } from '@/app/store/hooks'
-import { selectUser } from '@/entities/user'
+import { selectUser, useUpdateAvatarMutation, useDeleteAvatarMutation } from '@/entities/user'
 import AvatarUpload from './AvatarUpload'
 
 interface AvatarModalProps {
@@ -21,17 +21,34 @@ interface AvatarModalProps {
 
 const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
   const user = useAppSelector(selectUser)
+  const [updateAvatar] = useUpdateAvatarMutation()
+  const [deleteAvatar] = useDeleteAvatarMutation()
 
+  const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
   const avatars = user.avatars
 
-  // const handleSelectAvatar = async (avatarId: number) => {
-  //   try {
-  //     await setAvatar({ avatarId }).unwrap();
-  //     onClose();
-  //   } catch (err) {
-  //     console.error('Не удалось установить аватар', err);
-  //   }
-  // };
+  const handleSetAvatarByDefault = async (avatarId: string) => {
+    try {
+      await updateAvatar({
+        id: testId,
+        avatarId,
+        isDefault: true,
+        isActive: true
+      }).unwrap();
+      alert('Аватар успешно обновлен!');
+    } catch (err) {
+      console.error('Не удалось установить аватар', err);
+    }
+  };
+
+  const handleDeleteAvatar = async (avatarId: string) => {
+    try {
+      await deleteAvatar({ id: testId, avatarId }).unwrap();
+      alert('Аватар успешно удален');
+    } catch (err) {
+      console.error('Не удалось удалить аватар', err);
+    }
+  };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
@@ -42,7 +59,7 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
           </Alert>
         )}
         {avatars && avatars.length > 0 && (
-          <Grid container spacing={4} sx={{ mb: 2 }}>
+          <Grid container spacing={4} sx={{ mb: 4 }}>
             {avatars.map((avatar) => (
               <Grid size={{ xs: 4 }} key={avatar.avatarId}>
                 <Box
@@ -82,15 +99,42 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
                     </Box>
                   )}
                   <div className='flex justify-between mt-2'>
-                    <Button disabled={avatar.isDefault}>Аватар по умолчанию</Button>
-                    <Button color='error'>Удалить</Button>
+                    <Button
+                      disabled={avatar.isDefault}
+                      onClick={() => handleSetAvatarByDefault(avatar.avatarId)}
+                    >
+                      Аватар по умолчанию
+                    </Button>
+                    <Button
+                      color='error'
+                      onClick={() => handleDeleteAvatar(avatar.avatarId)}
+                    >
+                      Удалить
+                    </Button>
                   </div>
                 </Box>
               </Grid>
             ))}
+                
+            <div className='flex justify-end w-1/3'>
+              <Box
+                sx={{
+                  position: 'relative',
+                  border: '1px dashed #ddd',
+                  borderRadius: 2,
+                  p: 2,
+                  transition: 'transform 0.2s',
+                  display: 'flex',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  width: '100%'
+                }}
+              >
+                <AvatarUpload />
+              </Box>
+            </div>
           </Grid>
         )}
-        <AvatarUpload />
       </DialogContent>
     </Dialog>
   );
