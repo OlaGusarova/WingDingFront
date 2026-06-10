@@ -7,7 +7,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Badge, Popper, Paper, Typography } from '@mui/material';
 import { isSameDay } from 'date-fns';
-
+import dateParse from '@/shared/lib/dateParse';
 import type { Event } from '@/app/(pages)/types'
 
 interface CustomDayProps extends PickerDayProps {
@@ -51,7 +51,7 @@ const CustomDay = (props: CustomDayProps) => {
           <Paper sx={{ p: 1.5, maxWidth: 250 }}>
             {eventsOnDate.map(event => (
               <Typography key={event.id} variant="body2">
-                <strong>{event.title}</strong> {event.date && <>в {event.date}</>}
+                <strong>{event.title}</strong> {event.date && <>в {dateParse(event.date, 'HH:mm')}</>}
               </Typography>
             ))}
           </Paper>
