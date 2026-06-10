@@ -4,12 +4,19 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  DialogActions,
   Grid,
   Box,
   Alert,
   Avatar,
+  IconButton,
   Button
 } from '@mui/material';
+import {
+  Favorite as FavoriteIcon,
+  FavoriteBorder as FavoriteBorderIcon,
+  Delete as DeleteIcon
+} from '@mui/icons-material'
 import { useAppSelector } from '@/app/store/hooks'
 import { selectUser, useUpdateAvatarMutation, useDeleteAvatarMutation } from '@/entities/user'
 import AvatarUpload from './AvatarUpload'
@@ -51,26 +58,34 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogContent>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      sx={{
+        borderRadius: 3,
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+      }}
+    >
+    
+      <DialogContent dividers>
         {avatars && avatars.length === 0 && (
           <Alert severity="info" sx={{ mt: 2 }}>
             У вас пока нет загруженных аватаров.
           </Alert>
         )}
         {avatars && avatars.length > 0 && (
-          <Grid container spacing={4} sx={{ mb: 4 }}>
+          <Grid container spacing={2} sx={{ mb: 4 }}>
             {avatars.map((avatar) => (
               <Grid size={{ xs: 4 }} key={avatar.avatarId}>
                 <Box
-                  // onClick={() => handleSelectAvatar(avatar.avatarId)}
                   sx={{
                     cursor: 'pointer',
                     position: 'relative',
                     border: '1px dashed #ddd',
                     borderRadius: 2,
-                    p: 2,
-                    transition: 'transform 0.2s',
+                    p: 2
                   }}
                 >
                   <Avatar
@@ -78,64 +93,54 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
                     alt="Avatar"
                     sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }}
                   />
-                  {avatar.isDefault && (
-                    <Box
+                  <div className='flex justify-between'>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleSetAvatarByDefault(avatar.avatarId)}
                       sx={{
-                        position: 'absolute',
-                        top: 16,
-                        right: 16,
-                        bgcolor: 'primary.main',
-                        color: 'white',
-                        borderRadius: '50%',
-                        width: 32,
-                        height: 32,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: 14,
+                        color: avatar.isDefault ? '#e91e63' : 'text.secondary',
+                        '&:hover': {
+                          backgroundColor: avatar.isDefault 
+                            ? 'rgba(233, 30, 99, 0.08)' 
+                            : 'rgba(0, 0, 0, 0.04)',
+                        },
                       }}
                     >
-                      ✓
-                    </Box>
-                  )}
-                  <div className='flex justify-between mt-2'>
-                    <Button
-                      disabled={avatar.isDefault}
-                      onClick={() => handleSetAvatarByDefault(avatar.avatarId)}
-                    >
-                      Аватар по умолчанию
-                    </Button>
-                    <Button
-                      color='error'
+                      {avatar.isDefault ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </IconButton>
+                    
+                    <IconButton
+                      size="small"
                       onClick={() => handleDeleteAvatar(avatar.avatarId)}
+                      sx={{
+                        color: 'text.secondary',
+                        '&:hover': {
+                          color: '#f44336',
+                          backgroundColor: 'rgba(244, 67, 54, 0.08)',
+                        },
+                      }}
                     >
-                      Удалить
-                    </Button>
+                      <DeleteIcon />
+                    </IconButton>
                   </div>
                 </Box>
               </Grid>
             ))}
-                
-            <div className='flex justify-end w-1/3'>
-              <Box
-                sx={{
-                  position: 'relative',
-                  border: '1px dashed #ddd',
-                  borderRadius: 2,
-                  p: 2,
-                  transition: 'transform 0.2s',
-                  display: 'flex',
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                  width: '100%'
-                }}
-              >
-                <AvatarUpload />
-              </Box>
-            </div>
           </Grid>
         )}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4, mb: 2 }}>
+        <AvatarUpload />
+        </Box>
       </DialogContent>
+      <DialogActions sx={{ p: 2, justifyContent: 'end' }}>
+        <Button
+          onClick={onClose}
+          variant="outlined"
+          size='large'
+        >
+          Закрыть
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };
