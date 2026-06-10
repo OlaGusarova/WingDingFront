@@ -2,7 +2,6 @@
 
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Grid,
@@ -11,7 +10,7 @@ import {
   Avatar,
   IconButton,
   Button
-} from '@mui/material';
+} from '@/shared/ui/mui'
 import {
   Favorite as FavoriteIcon,
   FavoriteBorder as FavoriteBorderIcon,

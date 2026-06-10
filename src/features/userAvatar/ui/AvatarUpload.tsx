@@ -2,10 +2,8 @@
 
 import { useUploadAvatarMutation } from '@/entities/user'
 import {
-  Box,
   IconButton,
-  Typography,
-  Button
+  Typography
 } from '@/shared/ui/mui'
 import {
   Add as AddIcon,
