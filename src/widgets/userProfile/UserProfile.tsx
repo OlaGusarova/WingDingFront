@@ -16,14 +16,14 @@ const UserProfile = () => {
 
   return (
     <div className='bg-white rounded-lg p-8 flex flex-col gap-8 flex-1'>
-      <div className="flex gap-8">
+      <div className="flex gap-10">
         <div className="flex flex-col">
           <Box sx={{ position: 'relative', display: 'inline-block' }}>
             <Avatar src={userDetails?.mainAvatar?.avatarUri} alt={userDetails?.displayName} sx={{ height: '150px', width: '150px'}} />
             <AvatarEditButton />
           </Box>
         </div>
-        <div className='flex flex-col justify-center gap-4'>
+        <div className='flex flex-col justify-center gap-6'>
           <h2 className="text-xl font-semibold">
             {userDetails?.displayName}
           </h2>

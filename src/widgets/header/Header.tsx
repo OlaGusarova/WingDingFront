@@ -24,7 +24,7 @@ const Header = () => {
   const pathname = usePathname()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(null)
-
+  console.log('testId', testId)
   const { data: user, isLoading, error } = useGetUserQuery(testId)
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {

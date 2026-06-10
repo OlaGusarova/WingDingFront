@@ -9,10 +9,15 @@ import { Badge, Popper, Paper, Typography } from '@mui/material';
 import { isSameDay } from 'date-fns';
 import dateParse from '@/shared/lib/dateParse';
 import type { Event } from '@/app/(pages)/types'
+import { ru } from 'date-fns/locale'; // Русская локаль для date-fns
+import { ruRU } from '@mui/x-date-pickers/locales'; // Русские тексты для MUI X
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 interface CustomDayProps extends PickerDayProps {
   eventsOnDate?: Event[];
 }
+
+const theme = createTheme({}, ruRU);
 
 const CustomDay = (props: CustomDayProps) => {
   const { eventsOnDate = [], day, ...other } = props;
@@ -72,19 +77,21 @@ const EventCalendar = ({ events }: EventCalendarProps) => {
 
   return (
     <div className='bg-white rounded-lg p-4 flex'>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DateCalendar
-          sx={{ maxWidth: '100%' }}
-          slots={{
-            day: (dayProps) => (
-              <CustomDay
-                {...dayProps}
-                eventsOnDate={getEventsForDay(dayProps.day)}
-              />
-            ),
-          }}
-        />
-      </LocalizationProvider>
+      <ThemeProvider theme={theme}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
+          <DateCalendar
+            sx={{ maxWidth: '100%' }}
+            slots={{
+              day: (dayProps) => (
+                <CustomDay
+                  {...dayProps}
+                  eventsOnDate={getEventsForDay(dayProps.day)}
+                />
+              ),
+            }}
+          />
+        </LocalizationProvider>
+      </ThemeProvider>
     </div>
   );
 };
