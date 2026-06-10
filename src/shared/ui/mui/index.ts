@@ -26,3 +26,4 @@ export { default as DialogTitle } from '@mui/material/DialogTitle';
 export { default as DialogContent } from '@mui/material/DialogContent';
 export { default as DialogActions } from '@mui/material/DialogActions';
 export { default as TextField } from '@mui/material/TextField';
+export { default as Alert } from '@mui/material/Alert';
