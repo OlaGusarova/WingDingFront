@@ -23,12 +23,22 @@ export const userApi = api.injectEndpoints({
       },
       providesTags: ['User'],
     }),
-    updateUser: builder.mutation<User, Partial<User> & Pick<User, 'id'>>({
-      query: ({ id, ...patch }) => ({
-        url: `/users/${id}`,
-        method: 'PATCH',
-        body: patch,
-      }),
+    updateUser: builder.mutation<User, Pick<User, 'id' | 'displayName' | 'bio' | 'birthDate' | 'interests'>>({
+      query: (data) => {
+        const formData = new FormData();
+        formData.append('Id', data.id);
+        if (data.displayName !== undefined) formData.append('DisplayName', data.displayName);
+        if (data.bio !== undefined) formData.append('Bio', data.bio);
+        if (data.birthDate !== undefined) formData.append('BirthDate', data.birthDate);
+        if (data.interests !== undefined && data.interests.length) {
+          data.interests.forEach(interest => formData.append('Interests', interest));
+        }
+        return {
+            url: '/profiles',
+            method: 'PUT',
+            body: formData,
+        }
+      },
       invalidatesTags: ['User'],
     }),
     uploadAvatar: builder.mutation<void, FormData>({
