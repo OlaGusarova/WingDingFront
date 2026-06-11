@@ -9,16 +9,20 @@ import {
   Alert,
   Avatar,
   IconButton,
-  Button
-} from '@/shared/ui/mui'
+  Button,
+} from '@/shared/ui/mui';
 import {
   Favorite as FavoriteIcon,
   FavoriteBorder as FavoriteBorderIcon,
-  Delete as DeleteIcon
-} from '@mui/icons-material'
-import { useAppSelector } from '@/app/store/hooks'
-import { selectUser, useUpdateAvatarMutation, useDeleteAvatarMutation } from '@/entities/user'
-import AvatarUpload from './AvatarUpload'
+  Delete as DeleteIcon,
+} from '@mui/icons-material';
+import { useAppSelector } from '@/app/store/hooks';
+import {
+  selectUser,
+  useUpdateAvatarMutation,
+  useDeleteAvatarMutation,
+} from '@/entities/user';
+import AvatarUpload from './AvatarUpload';
 
 interface AvatarModalProps {
   open: boolean;
@@ -26,12 +30,12 @@ interface AvatarModalProps {
 }
 
 const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
-  const user = useAppSelector(selectUser)
-  const [updateAvatar] = useUpdateAvatarMutation()
-  const [deleteAvatar] = useDeleteAvatarMutation()
+  const user = useAppSelector(selectUser);
+  const [updateAvatar] = useUpdateAvatarMutation();
+  const [deleteAvatar] = useDeleteAvatarMutation();
 
-  const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
-  const avatars = user.avatars
+  const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
+  const avatars = user.avatars;
 
   const handleSetAvatarByDefault = async (avatarId: string) => {
     try {
@@ -39,7 +43,7 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
         id: testId,
         avatarId,
         isDefault: true,
-        isActive: true
+        isActive: true,
       }).unwrap();
       alert('Аватар успешно обновлен!');
     } catch (err) {
@@ -67,7 +71,6 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
       }}
     >
-    
       <DialogContent dividers>
         {avatars && avatars.length === 0 && (
           <Alert severity="info" sx={{ mt: 2 }}>
@@ -84,7 +87,7 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
                     position: 'relative',
                     border: '1px dashed #ddd',
                     borderRadius: 2,
-                    p: 2
+                    p: 2,
                   }}
                 >
                   <Avatar
@@ -92,22 +95,26 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
                     alt="Avatar"
                     sx={{ width: '100%', height: 'auto', aspectRatio: '1 / 1' }}
                   />
-                  <div className='flex justify-between'>
+                  <div className="flex justify-between">
                     <IconButton
                       size="small"
                       onClick={() => handleSetAvatarByDefault(avatar.avatarId)}
                       sx={{
                         color: avatar.isDefault ? '#e91e63' : 'text.secondary',
                         '&:hover': {
-                          backgroundColor: avatar.isDefault 
-                            ? 'rgba(233, 30, 99, 0.08)' 
+                          backgroundColor: avatar.isDefault
+                            ? 'rgba(233, 30, 99, 0.08)'
                             : 'rgba(0, 0, 0, 0.04)',
                         },
                       }}
                     >
-                      {avatar.isDefault ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                      {avatar.isDefault ? (
+                        <FavoriteIcon />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
                     </IconButton>
-                    
+
                     <IconButton
                       size="small"
                       onClick={() => handleDeleteAvatar(avatar.avatarId)}
@@ -127,16 +134,20 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
             ))}
           </Grid>
         )}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4, mb: 2 }}>
-        <AvatarUpload />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mt: 4,
+            mb: 2,
+          }}
+        >
+          <AvatarUpload />
         </Box>
       </DialogContent>
       <DialogActions sx={{ p: 2, justifyContent: 'end' }}>
-        <Button
-          onClick={onClose}
-          variant="outlined"
-          size='large'
-        >
+        <Button onClick={onClose} variant="outlined" size="large">
           Закрыть
         </Button>
       </DialogActions>
@@ -144,4 +155,4 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
   );
 };
 
-export default AvatarModal
+export default AvatarModal;

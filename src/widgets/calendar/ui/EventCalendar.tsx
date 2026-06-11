@@ -8,7 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Badge, Popper, Paper, Typography } from '@mui/material';
 import { isSameDay } from 'date-fns';
 import dateParse from '@/shared/lib/dateParse';
-import type { Event } from '@/app/(pages)/types'
+import type { Event } from '@/app/(pages)/types';
 import { ru } from 'date-fns/locale'; // Русская локаль для date-fns
 import { ruRU } from '@mui/x-date-pickers/locales'; // Русские тексты для MUI X
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -54,9 +54,10 @@ const CustomDay = (props: CustomDayProps) => {
           sx={{ zIndex: 1300 }}
         >
           <Paper sx={{ p: 1.5, maxWidth: 250 }}>
-            {eventsOnDate.map(event => (
+            {eventsOnDate.map((event) => (
               <Typography key={event.id} variant="body2">
-                <strong>{event.title}</strong> {event.date && <>в {dateParse(event.date, 'HH:mm')}</>}
+                <strong>{event.title}</strong>{' '}
+                {event.date && <>в {dateParse(event.date, 'HH:mm')}</>}
               </Typography>
             ))}
           </Paper>
@@ -72,11 +73,11 @@ interface EventCalendarProps {
 
 const EventCalendar = ({ events }: EventCalendarProps) => {
   const getEventsForDay = (day: Date) => {
-    return events.filter(event => isSameDay(event.date, day));
+    return events.filter((event) => isSameDay(event.date, day));
   };
 
   return (
-    <div className='bg-white rounded-lg p-4 flex'>
+    <div className="bg-white rounded-lg p-4 flex">
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
           <DateCalendar
@@ -96,4 +97,4 @@ const EventCalendar = ({ events }: EventCalendarProps) => {
   );
 };
 
-export default EventCalendar
+export default EventCalendar;

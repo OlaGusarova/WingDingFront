@@ -8,23 +8,32 @@ import {
   CardActions,
   Button,
   Box,
-  Chip
+  Chip,
 } from '@/shared/ui/mui';
-import Image from 'next/image'
+import Image from 'next/image';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Event } from '@/app/(pages)/types';
 import dateParse from '../lib/dateParse';
 
-interface IEvent { event: Event}
-type colorsType = 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
+interface IEvent {
+  event: Event;
+}
+type colorsType =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'error'
+  | 'info'
+  | 'success'
+  | 'warning';
 
 export const EventSection = ({ event }: IEvent) => {
   const formatDate = (dateString: string) => {
     return dateParse(dateString, 'd MMMM YYYY, HH:mm');
-  }
- 
+  };
+
   const getCategoryColor = (category: Event['category']) => {
     const colors = {
       concert: 'error',
@@ -47,13 +56,15 @@ export const EventSection = ({ event }: IEvent) => {
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }} key={event.id}>
-      <Card sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'transform 0.3s, box-shadow 0.3s',
-        '&:hover .image-box': { filter: 'grayscale(0%)' }
-      }}>
+      <Card
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'transform 0.3s, box-shadow 0.3s',
+          '&:hover .image-box': { filter: 'grayscale(0%)' },
+        }}
+      >
         <Box
           className="image-box"
           sx={{
@@ -75,8 +86,14 @@ export const EventSection = ({ event }: IEvent) => {
         </Box>
         <CardContent sx={{ flexGrow: 1 }}>
           <Box sx={{ mb: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-            <Chip label={getCategoryLabel(event.category)} color={getCategoryColor(event.category)} size="small" />
-            {event.isFree && <Chip label="Бесплатно" color="success" size="small" />}
+            <Chip
+              label={getCategoryLabel(event.category)}
+              color={getCategoryColor(event.category)}
+              size="small"
+            />
+            {event.isFree && (
+              <Chip label="Бесплатно" color="success" size="small" />
+            )}
           </Box>
 
           <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
@@ -88,14 +105,18 @@ export const EventSection = ({ event }: IEvent) => {
           </Typography>
 
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-            <CalendarTodayIcon sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+            <CalendarTodayIcon
+              sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }}
+            />
             <Typography variant="body2" color="text.secondary">
               {formatDate(event.date)}
             </Typography>
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-            <LocationOnIcon sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
+            <LocationOnIcon
+              sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }}
+            />
             <Typography variant="body2" color="text.secondary">
               {event.location}
             </Typography>
@@ -116,5 +137,5 @@ export const EventSection = ({ event }: IEvent) => {
         </CardActions> */}
       </Card>
     </Grid>
-  )
-}
+  );
+};

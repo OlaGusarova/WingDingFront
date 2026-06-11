@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 export { default as Button } from '@mui/material/Button';
 export { default as Card } from '@mui/material/Card';

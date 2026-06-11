@@ -1,1 +1,1 @@
-export { EventSection } from './ui/EventSection'
+export { EventSection } from './ui/EventSection';

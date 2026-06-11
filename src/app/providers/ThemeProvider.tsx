@@ -17,7 +17,7 @@ const roboto = Roboto({
 const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
-    fontSize: 13
+    fontSize: 13,
   },
   components: {
     MuiButton: {

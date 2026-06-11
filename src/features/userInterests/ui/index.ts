@@ -1,1 +1,1 @@
-export { default } from './UserInterests'
+export { default } from './UserInterests';

@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  Typography,
-  Grid,
-  Skeleton
-} from '@/shared/ui/mui';
+import { Typography, Grid, Skeleton } from '@/shared/ui/mui';
 import { EventSection } from '@/shared';
 import { Event } from '@/app/(pages)/types';
 
@@ -13,21 +9,23 @@ interface EventsSectionProps {
   loading?: boolean;
 }
 
-export const EventsSection = ({ events, loading = false }: EventsSectionProps) => {
-
+export const EventsSection = ({
+  events,
+  loading = false,
+}: EventsSectionProps) => {
   const renderHeader = () => (
-    <Typography 
-      variant='h4' 
+    <Typography
+      variant="h4"
       sx={{
         my: 6,
         fontWeight: 'bold',
         textAlign: 'center',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
       }}
     >
       Предстоящие события
     </Typography>
-  )
+  );
 
   if (loading) {
     return (
@@ -50,12 +48,9 @@ export const EventsSection = ({ events, loading = false }: EventsSectionProps) =
     <>
       {renderHeader()}
       <Grid container spacing={4}>
-        {events.map((event: Event) => 
-          <EventSection
-            key={event.id}
-            event={event}
-          />
-        )}
+        {events.map((event: Event) => (
+          <EventSection key={event.id} event={event} />
+        ))}
       </Grid>
     </>
   );

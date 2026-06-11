@@ -1,6 +1,12 @@
 'use client';
 
-import { Button, TextField, Card, CardContent, Typography } from '@/shared/ui/mui'
+import {
+  Button,
+  TextField,
+  Card,
+  CardContent,
+  Typography,
+} from '@/shared/ui/mui';
 
 export const LoginForm = () => {
   return (
@@ -9,22 +15,17 @@ export const LoginForm = () => {
         <Typography variant="h5" className="mb-4 text-center">
           Вход в систему
         </Typography>
-        
+
         <div className="space-y-4">
-          <TextField
-            fullWidth
-            label="Email"
-            type="email"
-            variant="outlined"
-          />
-          
+          <TextField fullWidth label="Email" type="email" variant="outlined" />
+
           <TextField
             fullWidth
             label="Пароль"
             type="password"
             variant="outlined"
           />
-          
+
           <Button
             fullWidth
             variant="contained"
@@ -37,5 +38,5 @@ export const LoginForm = () => {
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};

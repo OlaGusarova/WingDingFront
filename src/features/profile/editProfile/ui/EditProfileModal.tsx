@@ -30,42 +30,58 @@ interface EditProfileModalProps {
   onClose: () => void;
 }
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
+const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
 // Предопределённые предложения для интересов (можно загружать с бэка)
-const SUGGESTED_INTERESTS = ['Музыка', 'Спорт', 'Кино', 'Книги', 'Путешествия', 'Фотография', 'IT', 'Дизайн'];
+const SUGGESTED_INTERESTS = [
+  'Музыка',
+  'Спорт',
+  'Кино',
+  'Книги',
+  'Путешествия',
+  'Фотография',
+  'IT',
+  'Дизайн',
+];
 
 export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
   const currentUser = useAppSelector(selectUser);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   // Состояния формы
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [interests, setInterests] = useState<string[]>([]);
-  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [displayName, setDisplayName] = useState(
+    () => currentUser?.displayName ?? ''
+  );
+  const [bio, setBio] = useState(() => currentUser?.bio ?? '');
+  const [interests, setInterests] = useState(
+    () => currentUser?.interests ?? []
+  );
+  const [birthDate, setBirthDate] = useState<Date | null>(() => {
+    if (!currentUser?.birthDate) return null;
+    try {
+      return new Date(currentUser.birthDate);
+    } catch {
+      return null;
+    }
+  });
+  // Состояние для управления диалоговым окном
   const [inputInterest, setInputInterest] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error';
+  }>({
     open: false,
     message: '',
     severity: 'success',
   });
 
-  // Загрузка текущих данных пользователя при открытии
-  useEffect(() => {
-    if (currentUser && open) {
-      setDisplayName(currentUser.displayName || '');
-      setBio(currentUser.bio || '');
-      setInterests(currentUser.interests || []);
-      setBirthDate(currentUser.birthDate ? new Date(currentUser.birthDate) : null);
-    }
-  }, [currentUser, open]);
-
   // Валидация
   const validate = () => {
     const newErrors: typeof errors = {};
     if (!displayName.trim()) newErrors.displayName = 'Имя обязательно';
-    if (birthDate && birthDate > new Date()) newErrors.birthDate = 'Дата рождения не может быть в будущем';
+    if (birthDate && birthDate > new Date())
+      newErrors.birthDate = 'Дата рождения не может быть в будущем';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -73,31 +89,42 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
   const handleAddInterest = () => {
     const trimmed = inputInterest.trim();
     if (trimmed && !interests.includes(trimmed)) {
-      setInterests(prev => [...prev, trimmed]);
+      setInterests((prev) => [...prev, trimmed]);
       setInputInterest('');
-      console.log({ interests })
     }
   };
 
   const handleDeleteInterest = (interest: string) => {
-    setInterests(interests.filter(i => i !== interest));
+    setInterests(interests.filter((i) => i !== interest));
   };
 
   const handleSubmit = async () => {
     if (!validate() || !currentUser) return;
 
+    const data = {
+      displayName: displayName.trim(),
+      bio: bio.trim(),
+      interests,
+      birthDate: birthDate ? birthDate.toISOString() : 'null',
+    };
+
     try {
       await updateUser({
         id: testId,
-        displayName: displayName.trim(),
-        bio: bio.trim(),
-        interests,
-        birthDate: birthDate ? birthDate.toISOString() : null,
+        ...data,
       }).unwrap();
-      setSnackbar({ open: true, message: 'Профиль успешно обновлён', severity: 'success' });
+      setSnackbar({
+        open: true,
+        message: 'Профиль успешно обновлён',
+        severity: 'success',
+      });
       onClose();
     } catch (err) {
-      setSnackbar({ open: true, message: 'Ошибка при обновлении профиля', severity: 'error' });
+      setSnackbar({
+        open: true,
+        message: 'Ошибка при обновлении профиля',
+        severity: 'error',
+      });
       console.error('Update profile error:', err);
     }
   };
@@ -126,7 +153,10 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
               onChange={(e) => setBio(e.target.value)}
               disabled={isLoading}
             />
-            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={ru}
+            >
               <DatePicker
                 label="Дата рождения"
                 value={birthDate}
@@ -143,7 +173,9 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
               />
             </LocalizationProvider>
             <Box>
-              <Box sx={{ display: 'flex', gap: 1, mb: 2, alignItems: 'center' }}>
+              <Box
+                sx={{ display: 'flex', gap: 1, mb: 2, alignItems: 'center' }}
+              >
                 <Autocomplete
                   freeSolo
                   options={SUGGESTED_INTERESTS}
@@ -160,7 +192,10 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
                   )}
                   sx={{ flexGrow: 1 }}
                 />
-                <IconButton onClick={handleAddInterest} disabled={isLoading || !inputInterest.trim()}>
+                <IconButton
+                  onClick={handleAddInterest}
+                  disabled={isLoading || !inputInterest.trim()}
+                >
                   <AddIcon />
                 </IconButton>
               </Box>
@@ -180,8 +215,14 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
           </Box>
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
-          <Button onClick={onClose} disabled={isLoading}>Отмена</Button>
-          <Button onClick={handleSubmit} variant="contained" disabled={isLoading}>
+          <Button onClick={onClose} disabled={isLoading}>
+            Отмена
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            disabled={isLoading}
+          >
             {isLoading ? <CircularProgress size={24} /> : 'Сохранить'}
           </Button>
         </DialogActions>
@@ -189,10 +230,13 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}
-        onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert severity={snackbar.severity} onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}>
+        <Alert
+          severity={snackbar.severity}
+          onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>

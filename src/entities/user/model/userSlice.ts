@@ -3,7 +3,7 @@ import { User, UserState } from '../types';
 
 const initialState: UserState = {
   currentUser: null,
-  isLoading: false
+  isLoading: false,
 };
 
 export const userSlice = createSlice({

@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectUser } from '@/entities/user'
+import { selectUser } from '@/entities/user';
 
 interface UseRequireAuthOptions {
-  redirectTo?: string;   // куда редиректить, если нет пользователя
+  redirectTo?: string; // куда редиректить, если нет пользователя
   loadingComponent?: React.ReactNode; // можно показать лоадер, пока проверяем
 }
 

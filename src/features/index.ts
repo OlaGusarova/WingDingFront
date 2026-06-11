@@ -1,2 +1,2 @@
-export { LoginForm } from './auth/ui/LoginForm'
-export { EventsSection } from './EventsSection/EventsSection'
+export { LoginForm } from './auth/ui/LoginForm';
+export { EventsSection } from './EventsSection/EventsSection';

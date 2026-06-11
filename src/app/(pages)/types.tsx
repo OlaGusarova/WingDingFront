@@ -11,11 +11,11 @@ export interface Event {
 }
 
 export interface User {
-  id: string
-  displayName: string
-  bio: string
-  birthDate: string
-  avatars?: string[]
-  interests: string[]
-  role?: 'user' | 'admin'
+  id: string;
+  displayName: string;
+  bio: string;
+  birthDate: string;
+  avatars?: string[];
+  interests: string[];
+  role?: 'user' | 'admin';
 }

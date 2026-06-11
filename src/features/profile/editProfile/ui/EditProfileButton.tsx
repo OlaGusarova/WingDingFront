@@ -9,7 +9,7 @@ export const EditProfileButton = () => {
 
   return (
     <>
-      <Button variant="contained" size='large' onClick={() => setOpen(true)}>
+      <Button variant="contained" size="large" onClick={() => setOpen(true)}>
         Редактировать профиль
       </Button>
       <EditProfileModal open={open} onClose={() => setOpen(false)} />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -11,43 +11,45 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Avatar
-} from '@/shared/ui/mui'
-import MenuIcon from '@mui/icons-material/Menu'
-import { useRouter, usePathname } from 'next/navigation'
-import { useGetUserQuery } from '@/entities/user'
+  Avatar,
+} from '@/shared/ui/mui';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useRouter, usePathname } from 'next/navigation';
+import { useGetUserQuery } from '@/entities/user';
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
+const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
 
 const Header = () => {
-  const router = useRouter()
-  const pathname = usePathname()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(null)
-  console.log('testId', testId)
-  const { data: user, isLoading, error } = useGetUserQuery(testId)
+  const router = useRouter();
+  const pathname = usePathname();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
+  console.log('testId', testId);
+  const { data: user, isLoading, error } = useGetUserQuery(testId);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
 
   const handleMenuClose = () => {
-    setAnchorEl(null)
+    setAnchorEl(null);
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileAnchorEl(event.currentTarget)
-  }
+    setMobileAnchorEl(event.currentTarget);
+  };
 
   const handleMobileMenuClose = () => {
-    setMobileAnchorEl(null)
+    setMobileAnchorEl(null);
   };
 
   const navigateTo = (path: string) => {
-    router.push(path)
-    handleMenuClose()
-    handleMobileMenuClose()
-  }
+    router.push(path);
+    handleMenuClose();
+    handleMobileMenuClose();
+  };
 
   const menuItems = [
     { label: 'События', path: '/events' },
@@ -60,7 +62,13 @@ const Header = () => {
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           {/* Логотип */}
-          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: { xs: 1, md: 0 } }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexGrow: { xs: 1, md: 0 },
+            }}
+          >
             <Typography
               variant="h5"
               noWrap
@@ -80,7 +88,11 @@ const Header = () => {
 
           {/* Мобильное меню */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton size="large" onClick={(e) => setMobileAnchorEl(e.currentTarget)} color="inherit">
+            <IconButton
+              size="large"
+              onClick={(e) => setMobileAnchorEl(e.currentTarget)}
+              color="inherit"
+            >
               <MenuIcon />
             </IconButton>
             <Menu
@@ -89,7 +101,11 @@ const Header = () => {
               onClose={() => setMobileAnchorEl(null)}
             >
               {menuItems.map((item) => (
-                <MenuItem key={item.path} sx={{ textTransform: 'uppercase' }} onClick={() => navigateTo(item.path)}>
+                <MenuItem
+                  key={item.path}
+                  sx={{ textTransform: 'uppercase' }}
+                  onClick={() => navigateTo(item.path)}
+                >
                   {item.label}
                 </MenuItem>
               ))}
@@ -97,7 +113,13 @@ const Header = () => {
           </Box>
 
           {/* Десктопное меню */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'center',
+            }}
+          >
             {menuItems.map((item) => (
               <Button
                 key={item.path}
@@ -106,7 +128,7 @@ const Header = () => {
                   mx: 1,
                   color: 'text.primary',
                   fontWeight: pathname === item.path ? 600 : 400,
-                  textTransform: 'uppercase'
+                  textTransform: 'uppercase',
                 }}
               >
                 {item.label}
@@ -118,20 +140,38 @@ const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             {user?.displayName ? (
               <>
-                <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: 0 }}>
+                <IconButton
+                  onClick={(e) => setAnchorEl(e.currentTarget)}
+                  sx={{ p: 0 }}
+                >
                   <Avatar alt={user.displayName} />
                 </IconButton>
-                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
-                  <MenuItem onClick={() => navigateTo('/profile')}>Личный кабинет</MenuItem>
-                  <MenuItem onClick={() => navigateTo('/my-events')}>Мои события</MenuItem>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={() => setAnchorEl(null)}
+                >
+                  <MenuItem onClick={() => navigateTo('/profile')}>
+                    Личный кабинет
+                  </MenuItem>
+                  <MenuItem onClick={() => navigateTo('/my-events')}>
+                    Мои события
+                  </MenuItem>
                 </Menu>
               </>
             ) : (
               <Box sx={{ display: 'flex', gap: 1 }}>
-                <Button color="primary" onClick={() => navigateTo('/auth/login')}>
+                <Button
+                  color="primary"
+                  onClick={() => navigateTo('/auth/login')}
+                >
                   Вход
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => navigateTo('/auth/register')}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => navigateTo('/auth/register')}
+                >
                   Регистрация
                 </Button>
               </Box>
@@ -143,4 +183,4 @@ const Header = () => {
   );
 };
 
-export default Header
+export default Header;

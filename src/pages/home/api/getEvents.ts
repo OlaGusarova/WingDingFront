@@ -1,10 +1,10 @@
-import type { Event } from '@/app/(pages)/types'
+import type { Event } from '@/app/(pages)/types';
 // Серверная функция для получения событий
 export async function getEvents(): Promise<Event[]> {
   // Здесь будет запрос к бэкенду
   // const res = await fetch('http://localhost:5000/api/events');
   // return res.json();
-  
+
   // Демо-данные
   return [
     {

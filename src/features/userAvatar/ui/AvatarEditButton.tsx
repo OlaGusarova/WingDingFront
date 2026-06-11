@@ -30,4 +30,4 @@ const AvatarEditButton = () => {
   );
 };
 
-export default AvatarEditButton
+export default AvatarEditButton;
