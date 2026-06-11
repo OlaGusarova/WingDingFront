@@ -3,6 +3,7 @@ import { User, UserState } from '../types';
 
 const initialState: UserState = {
   currentUser: null,
+  tempId: '',
   isLoading: false,
 };
 
@@ -16,8 +17,11 @@ export const userSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setTempId: (state, action: PayloadAction<string>) => {
+      state.tempId = action.payload;
+    },
   },
 });
 
-export const { setUser, setLoading } = userSlice.actions;
+export const { setUser, setLoading, setTempId } = userSlice.actions;
 export const userReducer = userSlice.reducer;

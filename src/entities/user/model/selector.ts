@@ -2,6 +2,7 @@ import type { RootState } from '@/app/store/store';
 import { createSelector } from '@reduxjs/toolkit';
 
 const selectCurrentUser = (state: RootState) => state.user.currentUser;
+export const selectTempId = (state: RootState) => state.user.tempId;
 
 export const selectUser = createSelector([selectCurrentUser], (user) => ({
   ...user,
@@ -12,3 +13,5 @@ export const selectUserInterests = createSelector(
   [selectCurrentUser],
   (user) => user?.interests || []
 );
+
+export const selectUserId = createSelector([selectTempId], (id) => id);

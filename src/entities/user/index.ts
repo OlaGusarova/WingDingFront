@@ -1,4 +1,4 @@
-export { userReducer, setUser, setLoading } from './model/userSlice';
+export { userReducer, setUser, setLoading, setTempId } from './model/userSlice';
 export {
   useGetUserQuery,
   useUpdateUserMutation,
@@ -7,5 +7,9 @@ export {
   useDeleteAvatarMutation,
   useUpdateInterestsMutation,
 } from './api/userApi';
-export { selectUser, selectUserInterests } from './model/selector';
+export {
+  selectUser,
+  selectUserInterests,
+  selectUserId,
+} from './model/selector';
 export type { User, UserState } from './types';

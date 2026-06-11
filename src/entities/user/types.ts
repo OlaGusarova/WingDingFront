@@ -17,5 +17,6 @@ export interface User {
 
 export interface UserState {
   currentUser: User | null;
+  tempId: string;
   isLoading: boolean;
 }

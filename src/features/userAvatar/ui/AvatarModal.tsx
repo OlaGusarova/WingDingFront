@@ -19,6 +19,7 @@ import {
 import { useAppSelector } from '@/app/store/hooks';
 import {
   selectUser,
+  selectUserId,
   useUpdateAvatarMutation,
   useDeleteAvatarMutation,
 } from '@/entities/user';
@@ -34,13 +35,13 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
   const [updateAvatar] = useUpdateAvatarMutation();
   const [deleteAvatar] = useDeleteAvatarMutation();
 
-  const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
+  const userId = useAppSelector(selectUserId);
   const avatars = user.avatars;
 
   const handleSetAvatarByDefault = async (avatarId: string) => {
     try {
       await updateAvatar({
-        id: testId,
+        id: userId,
         avatarId,
         isDefault: true,
         isActive: true,
@@ -53,7 +54,7 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
 
   const handleDeleteAvatar = async (avatarId: string) => {
     try {
-      await deleteAvatar({ id: testId, avatarId }).unwrap();
+      await deleteAvatar({ id: userId, avatarId }).unwrap();
       alert('Аватар успешно удален');
     } catch (err) {
       console.error('Не удалось удалить аватар', err);

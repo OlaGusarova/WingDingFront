@@ -23,14 +23,13 @@ import { ru } from 'date-fns/locale';
 import AddIcon from '@mui/icons-material/Add';
 import { useUpdateUserMutation } from '@/entities/user';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectUser } from '@/entities/user';
+import { selectUser, selectUserId } from '@/entities/user';
 
 interface EditProfileModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
 // Предопределённые предложения для интересов (можно загружать с бэка)
 const SUGGESTED_INTERESTS = [
   'Музыка',
@@ -45,6 +44,7 @@ const SUGGESTED_INTERESTS = [
 
 export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
   const currentUser = useAppSelector(selectUser);
+  const userId = useAppSelector(selectUserId);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   // Состояния формы
@@ -110,7 +110,7 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
 
     try {
       await updateUser({
-        id: testId,
+        id: userId,
         ...data,
       }).unwrap();
       setSnackbar({

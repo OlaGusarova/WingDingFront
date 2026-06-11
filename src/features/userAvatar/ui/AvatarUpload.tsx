@@ -1,12 +1,12 @@
 'use client';
 
-import { useUploadAvatarMutation } from '@/entities/user';
+import { useAppSelector } from '@/app/store/hooks';
+import { useUploadAvatarMutation, selectUserId } from '@/entities/user';
 import { IconButton, Typography } from '@/shared/ui/mui';
 import { Add as AddIcon } from '@mui/icons-material';
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
-
 const AvatarUpload = () => {
+  const userId = useAppSelector(selectUserId);
   const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
 
   const handleFileChange = async (
@@ -18,7 +18,7 @@ const AvatarUpload = () => {
     // Создаем FormData и добавляем в него файл
     const formData = new FormData();
     formData.append('Avatar', file);
-    formData.append('UserId', testId);
+    formData.append('UserId', userId);
     formData.append('IsDefault', String(true));
     formData.append('IsActive', String(true));
 

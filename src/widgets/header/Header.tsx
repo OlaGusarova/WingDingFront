@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -13,33 +13,22 @@ import {
   MenuItem,
   Avatar,
 } from '@/shared/ui/mui';
+import { useAppSelector } from '@/app/store/hooks';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter, usePathname } from 'next/navigation';
-import { useGetUserQuery } from '@/entities/user';
-
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
+import { useGetUserQuery, selectUserId } from '@/entities/user';
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(
     null
   );
-  console.log('testId', testId);
-  const { data: user, isLoading, error } = useGetUserQuery(testId);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileAnchorEl(event.currentTarget);
-  };
+  const userId = useAppSelector(selectUserId);
+  console.log('header', { userId });
+  const { data: user } = useGetUserQuery(userId, {
+    skip: !userId,
+  });
 
   const handleMobileMenuClose = () => {
     setMobileAnchorEl(null);
@@ -47,7 +36,6 @@ const Header = () => {
 
   const navigateTo = (path: string) => {
     router.push(path);
-    handleMenuClose();
     handleMobileMenuClose();
   };
 
@@ -141,23 +129,11 @@ const Header = () => {
             {user?.displayName ? (
               <>
                 <IconButton
-                  onClick={(e) => setAnchorEl(e.currentTarget)}
+                  onClick={() => navigateTo('/profile')}
                   sx={{ p: 0 }}
                 >
                   <Avatar alt={user.displayName} />
                 </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  <MenuItem onClick={() => navigateTo('/profile')}>
-                    Личный кабинет
-                  </MenuItem>
-                  <MenuItem onClick={() => navigateTo('/my-events')}>
-                    Мои события
-                  </MenuItem>
-                </Menu>
               </>
             ) : (
               <Box sx={{ display: 'flex', gap: 1 }}>
@@ -183,4 +159,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

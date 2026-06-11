@@ -1,8 +1,9 @@
 'use client';
 
+import { memo } from 'react';
 import { useAppSelector } from '@/app/store/hooks';
 import { selectUser } from '@/entities/user';
-import { Avatar, Box, Button } from '@/shared/ui/mui';
+import { Avatar, Box } from '@/shared/ui/mui';
 import AllInclusive from '@mui/icons-material/AllInclusive';
 import EventIcon from '@mui/icons-material/Event';
 import dateParse from '@/shared/lib/dateParse';
@@ -12,7 +13,6 @@ import { EditProfileButton } from '@/features/profile/editProfile';
 
 const UserProfile = () => {
   const userDetails = useAppSelector(selectUser);
-  console.log({ userDetails });
 
   return (
     <div className="bg-white rounded-lg p-8 flex flex-col gap-8 flex-1">
@@ -55,4 +55,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default memo(UserProfile);

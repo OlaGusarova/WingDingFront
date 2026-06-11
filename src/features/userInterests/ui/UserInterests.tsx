@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useAppSelector } from '@/app/store/hooks';
-import { selectUserInterests } from '@/entities/user';
+import { selectUserInterests, selectUserId } from '@/entities/user';
 import {
   Chip,
   IconButton,
@@ -14,9 +14,8 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import { useUpdateInterestsMutation } from '@/entities/user';
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
-
 const UserInterests = () => {
+  const userId = useAppSelector(selectUserId);
   const currentInterests = useAppSelector(selectUserInterests);
   const [updateInterests, { isLoading }] = useUpdateInterestsMutation();
 
@@ -30,7 +29,7 @@ const UserInterests = () => {
     console.log({ interests, newInterests });
     try {
       await updateInterests({
-        id: testId,
+        id: userId,
         interests: newInterests,
       }).unwrap();
     } catch (err) {
@@ -101,4 +100,4 @@ const UserInterests = () => {
   );
 };
 
-export default UserInterests;
+export default memo(UserInterests);
