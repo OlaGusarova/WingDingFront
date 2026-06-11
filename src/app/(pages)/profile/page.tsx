@@ -12,7 +12,7 @@ export default function ProfilePage() {
 
   return (
     <main className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Личный кабинет</h1>
+      <h1 className="text-2xl font-bold mt-6 mb-10">Личный кабинет</h1>
       <div className="flex gap-4 w-full">
         <UserProfile />
         <EventCalendar events={events} />

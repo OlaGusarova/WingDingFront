@@ -195,6 +195,11 @@ export const EditProfileModal = ({ open, onClose }: EditProfileModalProps) => {
                 <IconButton
                   onClick={handleAddInterest}
                   disabled={isLoading || !inputInterest.trim()}
+                  sx={{
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                    '&:hover': { backgroundColor: 'primary.light' },
+                  }}
                 >
                   <AddIcon />
                 </IconButton>

@@ -19,7 +19,7 @@ const AvatarEditButton = () => {
             right: 0,
             backgroundColor: 'background.paper',
             boxShadow: 1,
-            '&:hover': { backgroundColor: 'secondary.light' },
+            '&:hover': { backgroundColor: 'grey.100' },
           }}
         >
           <EditIcon fontSize="small" />
