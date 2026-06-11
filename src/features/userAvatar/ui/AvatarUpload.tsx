@@ -1,29 +1,26 @@
 'use client';
 
-import { useUploadAvatarMutation } from '@/entities/user'
-import {
-  IconButton,
-  Typography
-} from '@/shared/ui/mui'
-import {
-  Add as AddIcon,
-} from '@mui/icons-material'
+import { useUploadAvatarMutation } from '@/entities/user';
+import { IconButton, Typography } from '@/shared/ui/mui';
+import { Add as AddIcon } from '@mui/icons-material';
 
-const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88'
+const testId = 'd5e5cc54-8ac0-4c4c-91b6-e5e08f500e88';
 
 const AvatarUpload = () => {
-  const [uploadAvatar, { isLoading }] = useUploadAvatarMutation()
+  const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     // Создаем FormData и добавляем в него файл
     const formData = new FormData();
     formData.append('Avatar', file);
-    formData.append('UserId', testId)
-    formData.append('IsDefault', String(true))
-    formData.append('IsActive', String(true))
+    formData.append('UserId', testId);
+    formData.append('IsDefault', String(true));
+    formData.append('IsActive', String(true));
 
     // Отправляем на сервер
     try {
@@ -37,7 +34,7 @@ const AvatarUpload = () => {
   return (
     <>
       <IconButton
-        component='label' 
+        component="label"
         size="large"
         sx={{
           backgroundColor: 'primary.main',
@@ -50,7 +47,13 @@ const AvatarUpload = () => {
         }}
       >
         <AddIcon sx={{ fontSize: 32 }} />
-        <input type="file" hidden accept="image/jpeg, image/png, image/gif" onChange={handleFileChange} disabled={isLoading} />
+        <input
+          type="file"
+          hidden
+          accept="image/jpeg, image/png, image/gif"
+          onChange={handleFileChange}
+          disabled={isLoading}
+        />
       </IconButton>
       <Typography
         variant="body2"
@@ -59,7 +62,7 @@ const AvatarUpload = () => {
         Загрузить аватар
       </Typography>
     </>
-  )
-}
+  );
+};
 
-export default AvatarUpload
+export default AvatarUpload;
