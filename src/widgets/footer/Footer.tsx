@@ -11,6 +11,7 @@ import {
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { links } from './constants';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -32,91 +33,30 @@ const Footer = () => {
               интересам и общения в рамках закрытого клубного сообщества
             </Typography>
           </Grid>
+          {links.map((linkBlock) => (
+            <Grid key={linkBlock.title} size={{ xs: 12, sm: 6, md: 3 }}>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: 'semibold', mb: 1 }}
+              >
+                {linkBlock.title}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {linkBlock.links.map((linkInfo) => (
+                  <Link
+                    key={linkInfo.title}
+                    href={linkInfo.link}
+                    color="grey.600"
+                    underline="hover"
+                    variant="body2"
+                  >
+                    {linkInfo.title}
+                  </Link>
+                ))}
+              </Box>
+            </Grid>
+          ))}
 
-          {/* Быстрые ссылки */}
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: 'semibold', mb: 1 }}
-            >
-              Быстрые ссылки
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="/" color="grey.600" underline="hover" variant="body2">
-                Главная
-              </Link>
-              <Link
-                href="/events"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                События
-              </Link>
-              <Link
-                href="/about"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                О нас
-              </Link>
-              <Link
-                href="/contacts"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                Контакты
-              </Link>
-            </Box>
-          </Grid>
-
-          {/* Пользователям */}
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: 'semibold', mb: 1 }}
-            >
-              Пользователям
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link
-                href="/how-it-works"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                Как это работает
-              </Link>
-              <Link
-                href="/faq"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                FAQ
-              </Link>
-              <Link
-                href="/terms"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                Пользовательское соглашение
-              </Link>
-              <Link
-                href="/privacy"
-                color="grey.600"
-                underline="hover"
-                variant="body2"
-              >
-                Политика конфиденциальности
-              </Link>
-            </Box>
-          </Grid>
-
-          {/* Контакты */}
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography
               variant="subtitle1"
