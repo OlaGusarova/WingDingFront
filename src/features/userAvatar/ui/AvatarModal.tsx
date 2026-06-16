@@ -36,7 +36,7 @@ const AvatarModal = ({ open, onClose }: AvatarModalProps) => {
   const [deleteAvatar] = useDeleteAvatarMutation();
 
   const userId = useAppSelector(selectUserId);
-  const avatars = user.avatars;
+  const avatars = user?.avatars;
 
   const handleSetAvatarByDefault = async (avatarId: string) => {
     try {

@@ -15,8 +15,7 @@ export const userApi = api.injectEndpoints({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-
-          //dispatch(setUser(data));
+          dispatch(setUser(data));
         } catch (error) {
           console.error('Login failed:', error);
         }

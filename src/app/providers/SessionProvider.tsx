@@ -6,14 +6,12 @@ import {
   setUser,
   setTempId,
   selectUserId,
-  selectUser,
   useGetUserQuery,
 } from '@/entities/user';
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(selectUserId);
-  const existingUser = useAppSelector(selectUser);
 
   useEffect(() => {
     // 1. Восстанавливаем реального пользователя из localStorage
@@ -37,17 +35,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     }
   }, [dispatch]);
 
-  const { data: userData } = useGetUserQuery(userId as string, {
-    skip: !userId || !!existingUser?.displayName, // пропускаем, если уже есть
+  const {} = useGetUserQuery(userId as string, {
+    skip: !userId,
+    refetchOnMountOrArgChange: false,
   });
-
-  // 3. При получении данных – сохраняем в слайс
-  useEffect(() => {
-    if (userData && !existingUser?.displayName) {
-      dispatch(setUser(userData));
-      console.log('✅ Пользователь загружен через RTK Query');
-    }
-  }, [userData, dispatch, existingUser]);
 
   return <>{children}</>;
 }
