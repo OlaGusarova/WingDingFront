@@ -16,7 +16,7 @@ import {
 import { useAppSelector } from '@/app/store/hooks';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter, usePathname } from 'next/navigation';
-import { useGetUserQuery, selectUserId } from '@/entities/user';
+import { selectUser } from '@/entities/user';
 
 const Header = () => {
   const router = useRouter();
@@ -24,11 +24,8 @@ const Header = () => {
   const [mobileAnchorEl, setMobileAnchorEl] = useState<null | HTMLElement>(
     null
   );
-  const userId = useAppSelector(selectUserId);
-  console.log('header', { userId });
-  const { data: user } = useGetUserQuery(userId, {
-    skip: !userId,
-  });
+
+  const user = useAppSelector(selectUser);
 
   const handleMobileMenuClose = () => {
     setMobileAnchorEl(null);
